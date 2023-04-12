@@ -1,14 +1,18 @@
 #!/bin/sh
+python3 /spark-examples/setup.py
 cat workers | while read line
 do
     if [ "$line" = "-" ]; then
         echo "Skip $line"
     else
-        ssh root@$line -n "rm -rf /mapreduce-test/ && mkdir /mapreduce-test/"
+        ssh root@$line -n "rm -rf /spark-examples/ && mkdir /spark-examples/"
         echo "Copy data to $line"
-        scp  /mapreduce-test/setup.py root@$line:/mapreduce-test/ && scp /mapreduce-test/manager root@$line:/mapreduce-test/ && scp /mapreduce-test/workers root@$line:/mapreduce-test/
+        scp /spark-examples/hadoop-3.3.1.tar.gz root@$line:/spark-examples/ &&  scp /spark-examples/spark-3.2.1-bin-hadoop3.2.tgz root@$line:/spark-examples/ && scp /spark-examples/setup.py root@$line:/spark-examples/ && scp /spark-examples/manager root@$line:/spark-examples/ && scp /spark-examples/workers root@$line:/spark-examples/
         echo "Setup $line"
-        ssh root@$line -n "cd /mapreduce-test/ && python3 setup.py && ntpdate time.nist.gov"
+        ssh root@$line -n "cd /spark-examples/ && python3 setup.py"
         echo "Finished config node $line"
     fi
 done
+
+manager=$(cat /spark-examples/manager)
+echo "export SPARK_MASTER=$manager" > env.sh
