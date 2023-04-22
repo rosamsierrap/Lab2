@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # ---- coding:utf-8 ----
 from __future__ import print_function
 import sys
@@ -91,6 +90,6 @@ for player, data in p.items():
 
 output = sc.parallelize([shooter + '\t' + str(centroid_pos) for shooter, centroid_pos in cntds.items()])
 print(output)
-output.saveAsTextFile("output.txt")
+output.saveAsTextFile("hdfs://128.10.0.2:9000/part1/output")
 
 sc.stop()
