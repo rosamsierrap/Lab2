@@ -2,6 +2,13 @@
 # ---- coding:utf-8 ----
 import sys
 from pyspark import SparkContext, SparkConf
+
+from __future__ import print_function
+
+from operator import add
+
+from pyspark.sql import SparkSession
+
 import random
 
 conf = SparkConf().setAppName("PART1")
@@ -86,6 +93,7 @@ for player, data in p.items():
                 cntds[player][i] = future_centroid[i]
 
 output = sc.parallelize([shooter + '\t' + str(centroid_pos) for shooter, centroid_pos in cntds.items()])
+print(output)
 output.saveAsTextFile("output.txt")
 
 sc.stop()
