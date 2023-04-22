@@ -1,14 +1,11 @@
 #!/usr/bin/python
 # ---- coding:utf-8 ----
+from __future__ import print_function
 import sys
 from pyspark import SparkContext, SparkConf
 
-from __future__ import print_function
-
 from operator import add
-
 from pyspark.sql import SparkSession
-
 import random
 
 conf = SparkConf().setAppName("PART1")
