@@ -13,9 +13,9 @@ info = textFile.flatMap(lambda line: line.split("\n")) #lines
 
 # Map to (shooter, (dist, def_dist, time))
 ShotDistDefdistTime= info.map(lambda line: (line.split(",")[15]+line.split(",")[16].strip('"'),  #shooter
-                                            (float(line.split(",")[12]),  #dist
-                                             float(line.split(",")[18]), #def_dist
-                                             float(line.split(",")[9])))) #time
+                                            ((line.split(",")[12]),  #dist
+                                             (line.split(",")[18]), #def_dist
+                                             (line.split(",")[9])))) #time//float
 
 made = ShotDistDefdistTime.filter(lambda pair: pair[1][0] == 'made') #hit==made
 
